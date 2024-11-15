@@ -12,9 +12,16 @@ class ConstituencyController extends Controller
     // show all constituencies
     public function index()
     {
+        //  wanted to cache but we cant since we have a paginator that we want to be returning "real time" data
         return view('constituencies.index', [
-            'constituencies' => Cache::remember('contituencies', 100, fn() => Constituency::with('district')->paginate(10))
+            'constituencies' => Cache::remember('contituencies', 2, fn() => Constituency::with('district')->paginate(10))
         ]);
+
+        // we use pagination that way we can control how many records are being returned
+        // $constituencies = Constituency::with('district')->paginate(10);
+
+        // //  then we return the view with a collection of all the constituencies
+        // return view('constituencies.index', ['constituencies' => $constituencies]);
     }
 
     // show districts that belong to a specific consti...

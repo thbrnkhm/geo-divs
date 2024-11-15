@@ -1,36 +1,21 @@
 <x-app-layout>
-    <x-slot:heading>
-        Polling Districts {{ $constituency ? "for {$constituency->name}" : '' }}
-    </x-slot:heading>
+    
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __("Polling Districts " . ($constituency ? "for {$constituency->name}" : '')) }}
+        </h2>
+    </x-slot>
 
-    <table class="table-auto w-full border-collapse border border-gray-300">
-        <thead>
-            <tr>
-                <th class="border border-gray-300 px-4 py-2">Code</th>
-                <th class="border border-gray-300 px-4 py-2">District</th>
-                <th class="border border-gray-300 px-4 py-2">Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($districts as $district )
-            <tr>
-                <td class="border border-gray-300 px-4 py-2">
-                    <p>{{ $district['id'] }}</p>
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    <a class="hover:text-sky-500" href="/polling-stations/{{ $district['id'] }}">
-                        {{ $district['name'] }}
-                    </a>
-                </td>
-                <td class="border border-gray-300 px-4 py-2">
-                    <p>{{ $district->station->count() }}</p>
-                </td>
-            </tr>
-            @empty
-            <p>No polling districts available{{ $constituency ? " for {$constituency->name}" : '' }}.</p>
-            @endforelse
-        </tbody>
-    </table>
+    <x-table 
+        :headers="['Code', 'District', 'Count']"
+        :rows="$districts"
+        routePrefix="/polling-districts"
+        countKey="station_count"
+        countRelation="station"
+    />
 
-    <div>{{ $districts->links() }}</div>
+    <div class="mt-4">
+        {{ $districts->links() }}
+    </div>
+
 </x-app-layout>

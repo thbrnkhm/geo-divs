@@ -20,7 +20,7 @@ class SearchController extends Controller
 
         $stations = Station::where('name', 'LIKE', "%$query%")->with('district.constituency')->get();
 
-        return view('search-results', [
+        return view('search', [
             'query' => $query,
             'constituencies' => $constituencies,
             'districts' => $districts,

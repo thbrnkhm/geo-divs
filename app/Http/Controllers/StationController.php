@@ -20,7 +20,7 @@ class StationController extends Controller
             $district = District::find($districtId);
         } else {
             // Return all districts
-            $stations = Cache::remember('station', 100, fn() => Station::paginate(10)) ; 
+            $stations = Station::paginate(10);
             $district = null;
         }
 
@@ -29,5 +29,7 @@ class StationController extends Controller
             'district' => $district,
         ]);
     }
+
+    
 }
 
