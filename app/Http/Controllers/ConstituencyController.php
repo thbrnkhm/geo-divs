@@ -13,7 +13,7 @@ class ConstituencyController extends Controller
     public function index()
     {
         return view('constituencies.index', [
-            'constituencies' => Cache::remember('contituencies', 10, fn() => Constituency::with('district')->paginate(10))
+            'constituencies' => Cache::remember('contituencies', 100, fn() => Constituency::with('district')->paginate(10))
         ]);
     }
 

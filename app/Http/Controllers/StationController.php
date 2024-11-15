@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\District;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class StationController extends Controller
 {
@@ -19,7 +20,7 @@ class StationController extends Controller
             $district = District::find($districtId);
         } else {
             // Return all districts
-            $stations = Station::paginate(10);
+            $stations = Cache::remember('station', 100, fn() => Station::paginate(10)) ; 
             $district = null;
         }
 
@@ -29,3 +30,4 @@ class StationController extends Controller
         ]);
     }
 }
+

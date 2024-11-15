@@ -11,7 +11,7 @@ class FileUploadController extends Controller
     // show 
     public function show()
     {
-        return view('uploads');
+        return view('dashboard');
     }
 
     public function uploading(Request $request)

@@ -10,7 +10,7 @@
         <div class="p-4 mb-4 text-green-700 bg-green-100 rounded">{{ session('success') }}</div>
         @endif
 
-        <form action="{{ route('uploads') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dashboard') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2">Choose File</label>

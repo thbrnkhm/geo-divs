@@ -22,7 +22,7 @@ class DistrictController extends Controller
             $constituency = Constituency::find($constituencyId);
         } else {
             // Return all districts
-            $districts = Cache::remember('districts', 10, fn() => District::with('station')->paginate(10)) ; // with station so we can do count
+            $districts = Cache::remember('districts', 100, fn() => District::with('station')->paginate(10)) ; // with station so we can do count
             $constituency = null; // Explicitly set it to null
         }
 

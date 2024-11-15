@@ -68,31 +68,6 @@ class FileUploadImport implements ToCollection
                     ]
                 );
             }
-
-            
-            // // insert constituency
-            // $constituency = Constituency::firstOrCreate(
-            //     ['id' => $row[0]],
-            //     ['name' => $row[1]],
-            // );
-
-            // // insert district 
-            // $district = District::firstOrCreate(
-            //     ['id' => $row[2]],
-            //     [
-            //         'name' => $row[3],
-            //         'constituency_id' => $constituency->id,
-            //     ]
-            // );
-
-            // // insert station
-            // Station::firstOrCreate(
-            //     ['id' => $row[4]],
-            //     [
-            //         'name' => $row[5],
-            //         'district_id' => $district->id,
-            //     ]
-            // );
         }
     }
 }

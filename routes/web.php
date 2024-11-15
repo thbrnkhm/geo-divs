@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 // Route::view('/', 'welcome');
 
 // Apply rate limiting to homepage
-Route::get('/', function() {
-    return view('welcome');  // or whatever your homepage view is
+Route::get('/', function () {
+    return view('welcome'); 
 })->middleware('throttle:limiter');
 
 Route::get('/dashboard', function () {
@@ -26,12 +26,16 @@ Route::middleware('auth')->group(function () {
 });
 
 // route for handling uploading excel file
-// Route::controller(FileUploadController::class)->group(function () {
-//     Route::view('/uploads', 'dashboard');
-//     Route::post('/uploads', 'uploading');
-// });
-Route::get('/uploads', [FileUploadController::class, 'show'])->name('uploads');
-Route::post('/uploads', [FileUploadController::class, 'uploading'])->name('uploads');
+Route::controller(FileUploadController::class)->group(function () {
+    // Apply rate limiting to uploading
+    Route::get('/', function () {
+        return view('welcome');  // or whatever your homepage view is
+    })->middleware('throttle:limiter');
+
+    Route::post('/dashboard', 'uploading');
+});
+// Route::get('/uploads', [FileUploadController::class, 'show'])->name('uploads');
+// Route::post('/uploads', [FileUploadController::class, 'uploading'])->name('uploads');
 
 // Search 
 Route::controller(SearchController::class)->group(function () {
@@ -53,8 +57,8 @@ Route::controller(DistrictController::class)->group(function () {
 
 
 // Stations
-Route::controller(StationController::class)->group(function(){
+Route::controller(StationController::class)->group(function () {
     Route::get('polling-stations', 'index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
